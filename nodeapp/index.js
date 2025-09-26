@@ -18,7 +18,7 @@ const corsOptions = {
 // Enable CORS with the specified options
 app.use(cors(corsOptions));
 mongoose
-  .connect("mongodb://127.0.0.1:27017/demoname")
+  .connect("mongodb+srv://rahul971801_db_user:mDN5KU3Cc5fKXmv5@cluster0.ceqaxvb.mongodb.net/?retryWrites=true&w=majority")
   .then(() => {
     console.log("Database connected");
     app.listen(8080, () => {
@@ -28,7 +28,7 @@ mongoose
   .catch((error) => {
     console.log(error);
   });
-  
+
 // Routes
 app.use('/api/categories', categoryRoutes);
   
