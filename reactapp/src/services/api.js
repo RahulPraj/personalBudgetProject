@@ -1,4 +1,4 @@
-const API_BASE = "http://localhost:8080/api/categories";
+const API_BASE = "https://8080-ecefccaacaee334924434bdfddbacaacfbcthree.premiumproject.examly.io/api/categories";
 
 export async function addCategory(category) {
   const response = await fetch(API_BASE, {
