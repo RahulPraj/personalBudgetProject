@@ -1,6 +1,7 @@
 
 import React, { useState } from "react";
-// import './CategoryForm.css'
+import { addCategory } from "../services/api"; // ✅ import POST function
+
 export default function CategoryForm({ onAdd }) {
   const [categoryName, setCategoryName] = useState("");
   const [allocatedAmount, setAllocatedAmount] = useState("");
@@ -16,20 +17,28 @@ export default function CategoryForm({ onAdd }) {
     return Object.keys(newErrors).length === 0;
   };
 
-  const handleSubmit = e => {
+  const handleSubmit = async (e) => {
     e.preventDefault();
     if (!validate()) return;
 
-    onAdd({
-      categoryName,
-      allocatedAmount: Number(allocatedAmount),
-      description,
-    });
+    try {
+      await addCategory({
+        categoryName,
+        allocatedAmount: Number(allocatedAmount),
+        description,
+      });
 
-    setCategoryName("");
-    setAllocatedAmount("");
-    setDescription("");
-    setErrors({});
+      // ✅ Refresh summary after successful POST
+      if (onAdd) onAdd();
+
+      // Reset form
+      setCategoryName("");
+      setAllocatedAmount("");
+      setDescription("");
+      setErrors({});
+    } catch (err) {
+      console.error("Error adding category:", err);
+    }
   };
 
   return (
